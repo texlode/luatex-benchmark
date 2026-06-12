@@ -1,0 +1,10 @@
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.pdf
+*.synctex.gz
+
+# Typst comparison artifacts
+typst-comparison/doc*.typ
+typst-comparison/*.pdf
