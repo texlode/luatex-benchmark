@@ -10,11 +10,11 @@
 \documentclass{book}
 \usepackage{microtype}
 \begin{document}
-\directlua{paragraph_t0 = os.gettimeofday()}%
+\directlua{t0 = os.gettimeofday()}%
 The quick brown fox jumps over the lazy dog.
 \par
 \directlua{
-  local ms = (os.gettimeofday() - paragraph_t0) * 1000
+  local ms = (os.gettimeofday() - t0) * 1000
   local rounded = math.floor(ms * 100 + 0.5) / 100
   texio.write_nl("Paragraph: " .. rounded .. " ms")
 }
