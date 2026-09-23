@@ -14,11 +14,13 @@ document size.
 
 - TeX Live 2025 (provides `lualatex`), with the `microtype`, `amsmath`, and
   `lipsum` packages
-- Typst 0.15 (only for the comparison in `typst-comparison/`). Incremental
-  times are strongly version-dependent — the paper/talk numbers were measured
-  with Typst 0.15.0; earlier versions (0.12, 0.14) are several times faster,
-  so match the version when reproducing.
-- A POSIX shell for the Typst scripts (Git Bash on Windows is fine)
+- Typst 0.12–0.15 and Node.js (only for the comparison in `typst-comparison/`).
+  On x86 machines, 0.14 and later are about 1.6–2.2× slower per incremental
+  edit than 0.12/0.13 at 300 pages, mostly in PDF export; an Apple M4 showed no
+  difference ([issue #1](https://github.com/texlode/luatex-benchmark/issues/1)).
+  Note the version and machine when reporting numbers.
+- `bench.mjs` runs anywhere Node.js does; `run.sh` and `fetch-typst.sh` need
+  Linux or macOS
 
 ## What reproduces which table
 
@@ -27,7 +29,7 @@ document size.
 | `paragraph-benchmark.tex` | §3, the self-contained one-paragraph timing MWE |
 | `systematic-benchmark.tex` | §3, the short/medium/long + inline/display-math table (median / P5 / P95) |
 | `stability-benchmark.tex` | §"Why one paragraph is enough", the 500-compile no-degradation table |
-| `typst-comparison/bench.mjs` | §"Comparison with Typst", the Typst column of the ratio table |
+| `typst-comparison/bench.mjs` | §"Comparison with Typst". The paper's Typst figures came from an earlier script that isn't in this repo and don't reproduce with `bench.mjs`; a corrected same-paragraph, same-machine comparison is in progress ([issue #1](https://github.com/texlode/luatex-benchmark/issues/1)). |
 
 > **What this repo measures, and what it does not.** The LuaLaTeX scripts here
 > are a clean-room, engine-independent demonstration of the paper's core
