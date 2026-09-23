@@ -16,6 +16,9 @@
  *
  * Requires Typst on PATH. The wording of the watch timing line is version-
  * dependent; the regex in handleLine() covers ms / s / µs forms.
+ *
+ * $TYPST_EXTRA (space-separated) is appended to the `typst watch` arguments,
+ * e.g. TYPST_EXTRA="--pages 1" to export a single page (≈ compile time only).
  */
 
 import { spawn, execFileSync } from 'node:child_process';
@@ -103,7 +106,7 @@ async function main() {
   console.log(`  avg: ${coldAvg.toFixed(0)} ms\n`);
 
   console.log(`Incremental (typst watch, ${EDITS} edits):`);
-  const watch = spawn('typst', ['watch', DOC, PDF], { stdio: ['ignore', 'pipe', 'pipe'] });
+  const watch = spawn('typst', ['watch', DOC, PDF, ...(process.env.TYPST_EXTRA ? process.env.TYPST_EXTRA.split(' ') : [])], { stdio: ['ignore', 'pipe', 'pipe'] });
 
   const incrementalTimes = [];
   let initialCompileSeen = false;

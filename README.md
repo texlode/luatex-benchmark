@@ -58,6 +58,23 @@ node bench.mjs 100 30
 node bench.mjs 300 30
 ```
 
+### Comparing Typst versions
+
+`typst-comparison/run.sh` runs `bench.mjs` against Typst 0.12.0–0.15.1 on the
+same document, rotating through the versions in each cycle so that machine load
+doesn't show up as a version difference.
+
+```sh
+cd typst-comparison
+./fetch-typst.sh     # release binaries into ~/.cache/typst-versions (Linux, macOS)
+./run.sh sweep       # all versions, 3 cycles at 300 pages, then 10 and 100 pages
+./run.sh tags        # 300 pages, tagged PDF vs --no-pdf-tags
+./run.sh split       # 300 pages, full PDF export vs --pages 1 (≈ compile time only)
+```
+
+`bench.mjs` appends `$TYPST_EXTRA` to the `typst watch` arguments, which is
+how `run.sh` passes `--no-pdf-tags` and `--pages 1`.
+
 ## Methodology notes
 
 - **In-session, not cold start.** The paragraph is typeset inside a running
